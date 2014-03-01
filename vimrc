@@ -112,4 +112,5 @@ cmap w!! w !sudo tee % >/dev/null
 autocmd Filetype gitcommit setlocal spell textwidth=72
 
 set cursorline
+set wrap
 
