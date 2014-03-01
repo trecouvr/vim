@@ -104,7 +104,7 @@ let g:solarized_termcolors=256
 let g:solarized_termtrans=1
 colorscheme solarized
 
-"set t_Co=16
+set t_Co=16
 
 " Enable w!! to sudo after editing
 cmap w!! w !sudo tee % >/dev/null
