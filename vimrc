@@ -53,11 +53,10 @@ map <leader>b :CtrlPBuffer<cr>
 nmap <silent> ,/ :nohlsearch<CR>
 
 " Flake8
-nnoremap <leader>8 :call Flake8()<CR>
-" autocmd BufWritePost *.py call Flake8()
-let g:flake8_max_line_length=120
-let g:flake8_max_complexity=12
-let g:flake8_ignore="E128"
+"nnoremap <leader>8 :call Flake8()<CR>
+"autocmd BufWritePost *.py call Flake8()
+"let g:flake8_max_line_length=120
+"let g:flake8_max_complexity=10
 
 " Remove trailing whitespace on <leader>S
 nnoremap <leader>S :%s/\s\+$//<cr>:let @/=''<CR>
@@ -102,3 +101,9 @@ autocmd Filetype gitcommit setlocal spell textwidth=72
 set cursorline
 set wrap
 
+let g:syntastic_enable_signs=1
+let g:syntastic_enable_balloons=1
+let g:syntastic_auto_jump=1
+let g:syntastic_enable_highlighting=1
+let g:syntastic_auto_loc_list=1
+let g:syntastic_always_populate_loc_list = 1
