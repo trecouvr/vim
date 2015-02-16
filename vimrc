@@ -108,6 +108,7 @@ let g:syntastic_enable_highlighting=1
 let g:syntastic_auto_loc_list=1
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_python_checkers=['flake8']
+let g:syntastic_html_checkers = ['jshint']
 
 let &t_SI .= "\<Esc>[?2004h"
 let &t_EI .= "\<Esc>[?2004l"
