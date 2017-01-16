@@ -77,6 +77,15 @@ let g:pyflakes_use_quickfix = 0
 
 "au FileType python set omnifunc=pythoncomplete#Complete
 let g:SuperTabDefaultCompletionType = "context"
+" Pressing enter will exit completion mode, keeping current text and do not
+" add a new line
+let g:SuperTabCrMapping = 1
+
+
+" Do not color preview window (the one showed by jedi-vim for function
+" documentation for exemple), since this break the coloration of the main
+" window
+let g:airline_exclude_preview = 1
 
 set completeopt=menuone,longest,preview
 
