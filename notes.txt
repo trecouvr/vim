@@ -1,0 +1,14 @@
+
+Search / Replace project
+
+Inspired from https://vi.stackexchange.com/questions/2776/vim-search-replace-all-files-in-current-project-folder
+
+1. Utiliser Ack pour trouver les occurences dans les fichiers et les mettre dans la list quickfix
+:Ack searchterm
+
+2. Lancer le remplacement
+:cfdo %s/searchterm/replaceterm/g
+note: utiliser /gc pour demander la confirmation
+
+3. Save tous les buffers
+:cfdo update
