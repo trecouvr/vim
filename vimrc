@@ -132,3 +132,11 @@ function! XTermPasteBegin()
   return ""
 endfunction
 
+
+" https://vim.fandom.com/wiki/Moving_lines_up_or_down
+nnoremap <C-j> :m .+1<CR>
+nnoremap <C-k> :m .-2<CR>
+inoremap <C-j> <Esc>:m .+1<CR>
+inoremap <C-k> <Esc>:m .-2<CR>
+vnoremap <C-j> :m '>+1<CR>
+vnoremap <C-k> :m '<-2<CR>
