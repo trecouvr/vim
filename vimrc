@@ -120,6 +120,7 @@ let g:syntastic_auto_loc_list=1
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_python_checkers=['flake8']
 let g:syntastic_html_checkers = ['jshint']
+let g:syntastic_mode_map = { 'passive_filetypes': ['java', 'cpp', 'c'] }
 
 let &t_SI .= "\<Esc>[?2004h"
 let &t_EI .= "\<Esc>[?2004l"
@@ -140,3 +141,7 @@ inoremap <C-j> <Esc>:m .+1<CR>
 inoremap <C-k> <Esc>:m .-2<CR>
 vnoremap <C-j> :m '>+1<CR>
 vnoremap <C-k> :m '<-2<CR>
+
+
+" make backspace work like most other programs
+set backspace=indent,eol,start
