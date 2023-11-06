@@ -66,7 +66,6 @@ syntax on
 cmap w!! w !sudo tee % >/dev/null
 
 " Colors
-colorscheme delek
 hi Normal guibg=NONE ctermbg=NONE
 
 """ Highlight current line
