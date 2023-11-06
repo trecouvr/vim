@@ -1,14 +1,16 @@
-" Most commands/comments come from https://github.com/sontek/dotfiles/
-
 set nocompatible
-let mapleader=","
+let mapleader=','
 
-filetype off
-call pathogen#incubate()
-call pathogen#helptags()
+" Basic
 
+set matchpairs+=<:>         " show matching <> (html mainly) as well
+set foldmethod=indent       " allow us to fold on indents
+set foldlevel=99            " don't fold by default
+let g:netrw_liststyle = 3   " folder tree view
+
+
+""" Indentation
 filetype plugin indent on
-
 set autoindent              " always set autoindenting on
 set smartindent             " use smart indent if there is no indent file
 set tabstop=4               " <tab> inserts 4 spaces
@@ -16,132 +18,95 @@ set shiftwidth=4            " but an indent level is 4 spaces wide.
 set softtabstop=4           " <BS> over an autoindent deletes both spaces.
 set expandtab               " Use spaces, not tabs, for autoindent/tab key.
 set shiftround              " rounds indent to a multiple of shiftwidth
-set matchpairs+=<:>         " show matching <> (html mainly) as well
-set foldmethod=indent       " allow us to fold on indents
-set foldlevel=99            " don't fold by default
-set history=200             " boost history limit
 
 """ Searching and Patterns
 set ignorecase              " Default to using case insensitive searches,
 set smartcase               " unless uppercase letters are used in the regex.
-set smarttab                " Handle tabs more intelligently 
+set smarttab                " Handle tabs more intelligently
 set hlsearch                " Highlight searches by default.
 set incsearch               " Incrementally search while typing a /regex
+nmap <silent> ,/ :nohlsearch<CR> " hide matches on <leader>/
 
+
+""" Highlight current line
+set cursorline
+hi CursorLine   cterm=NONE ctermbg=234 ctermfg=NONE
+
+
+""" Ruler
 set ruler                   " Show some info, even without statuslines.
-set laststatus=2            " Always show statusline, even if only 1 window.
-set statusline=[%l,%v\ %P%M]\ %f\ %r%h%w\ (%{&ff})\ 
+set laststatus=0            " Never show statusline
+set rulerformat=%100(%=%<%f%m\ ›\ %l/%L:%v%)
 
-set number                    " Display line numbers
-set numberwidth=1             " using only 1 column (and 1 space) while possible
-set wildignore+=*.pyc,*.zip,*.pyo
-
-
-" Paste from clipboard
-map <leader>p "+p
-
-" Quickly edit/reload the vimrc file
-nmap <silent> <leader>ev :e $MYVIMRC<CR>
-nmap <silent> <leader>sv :so $MYVIMRC<CR>
-
-" CtrlP
-let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_max_height = 50
-let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|__pycache__\|dist'
-map <leader>b :CtrlPBuffer<cr>
-
-
-" hide matches on <leader>/
-nmap <silent> ,/ :nohlsearch<CR>
-
-" Flake8
-"nnoremap <leader>8 :call Flake8()<CR>
-"autocmd BufWritePost *.py call Flake8()
-"let g:flake8_max_line_length=120
-"let g:flake8_max_complexity=10
-
-" Remove trailing whitespace on <leader>S
-nnoremap <leader>S :%s/\s\+$//<cr>:let @/=''<CR>
-
-" Ack shortcut
-nnoremap <leader>a :Ack 
-
-set wildmode=longest:full,list:longest "Xavier: do not fully complete path
-
-" let g:jedi#show_function_definition = "0"
-let g:jedi#use_tabs_not_buffers = 0
-
-map <leader>G :GundoToggle<CR>
-
-set hidden             "Allow to hide modified buffer
-
-let g:pyflakes_use_quickfix = 0
-
-"au FileType python set omnifunc=pythoncomplete#Complete
-let g:SuperTabDefaultCompletionType = "context"
-" Pressing enter will exit completion mode, keeping current text and do not
-" add a new line
-let g:SuperTabCrMapping = 1
-
-
-" Do not color preview window (the one showed by jedi-vim for function
-" documentation for exemple), since this break the coloration of the main
-" window
-let g:airline_exclude_preview = 1
-
-set completeopt=menuone,longest,preview
-
-" Show tabs and trailing spaces
+" Show tabs,  trailing spaces and wrap
 set list
 set listchars=tab:>.,trail:.
+set showbreak=¬\
 
 
-syntax enable
-set background=dark
-let g:solarized_termcolors=256
-let g:solarized_termtrans=1
-colorscheme solarized
+""" Other
 
-set t_Co=16
+set backspace=indent,eol,start                   " backspace behaviour
+set clipboard=unnamed,unnamedplus                " enable clipboard
+set encoding=utf8
+set hidden                                       " hide buffers, don't close
+"set lazyredraw ttyfast      " Performace Tuning
+set mouse=a                 " enable mouse support
+"set nobackup noswapfile nowritebackup undofile undodir=~/.vim/undo undolevels=99999
+set nowrap
+set number                  " Display line numbers
+"set scrolloff=999           " Always center current line on screen
+set showcmd
+"set showmatch               " show matching brackets
+set term=xterm-256color
+set wildmenu wildmode=longest:full,full wildcharm=<Tab>
+syntax on
 
 " Enable w!! to sudo after editing
 cmap w!! w !sudo tee % >/dev/null
 
-autocmd Filetype gitcommit setlocal spell textwidth=72
+" Colors
+colorscheme delek
+hi Normal guibg=NONE ctermbg=NONE
 
+""" Highlight current line
 set cursorline
-set wrap
+hi CursorLine   cterm=NONE ctermbg=234 ctermfg=NONE
+hi CursorLineNr cterm=NONE ctermfg=234 ctermfg=NONE term=bold
+hi LineNr       ctermfg=245
 
-let g:syntastic_enable_signs=1
-let g:syntastic_enable_balloons=1
-" let g:syntastic_auto_jump=1
-let g:syntastic_enable_highlighting=1
-let g:syntastic_auto_loc_list=1
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_python_checkers=['flake8']
-let g:syntastic_html_checkers = ['jshint']
-let g:syntastic_mode_map = { 'passive_filetypes': ['java', 'cpp', 'c'] }
+" CtrlP
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_max_height = 50
+let g:ctrlp_custom_ignore = {
+    \ 'dir':  '\v[\/]\.(git|hg|svn)\|node_modules\|DS_Store\|__pycache__\|dist$',
+    \ 'file': '\v\.(exe|so|dll)$',
+    \ }
 
-let &t_SI .= "\<Esc>[?2004h"
-let &t_EI .= "\<Esc>[?2004l"
+map <leader>b :CtrlPBuffer<CR>
 
-inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
+" Ack shortcut
+nnoremap <leader>a :Ack
 
-function! XTermPasteBegin()
-  set pastetoggle=<Esc>[201~
-  set paste
-  return ""
+
+" Autocomplete Settings
+autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python set omnifunc=pythoncomplete#Complete
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" MULTIPURPOSE TAB KEY
+" Indent if we're at the beginning of a line. Else, do completion.
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! InsertTabWrapper()
+    let col = col('.') - 1
+    if !col || getline('.')[col - 1] !~ '\k'
+        return "\<tab>"
+    else
+        return "\<c-p>"
+    endif
 endfunction
-
-
-" https://vim.fandom.com/wiki/Moving_lines_up_or_down
-nnoremap <C-j> :m .+1<CR>
-nnoremap <C-k> :m .-2<CR>
-inoremap <C-j> <Esc>:m .+1<CR>
-inoremap <C-k> <Esc>:m .-2<CR>
-vnoremap <C-j> :m '>+1<CR>
-vnoremap <C-k> :m '<-2<CR>
-
-
-" make backspace work like most other programs
-set backspace=indent,eol,start
+inoremap <expr> <tab> InsertTabWrapper()
+inoremap <s-tab> <c-n>
